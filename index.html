@@ -21,7 +21,20 @@
 
   body {
     background: var(--ink);
-    color: var(--bone);  nav {
+    color: var(--bone);
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 { font-family: 'Anton', sans-serif; letter-spacing: 0.01em; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+
+  /* NAV */
+  nav {
     position: sticky; top: 0; z-index: 50;
     background: rgba(22,16,28,0.9);
     backdrop-filter: blur(8px);
@@ -91,25 +104,42 @@
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   .card {
     position: relative; border-radius: 14px; overflow: hidden;
-    background: var(--plum); aspect-ratio: 3/4;
+    background: var(--plum);
     transition: transform 0.25s ease;
   }
+  .card-img-wrap { position: relative; aspect-ratio: 4/5; overflow: hidden; cursor: zoom-in; }
   .card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
-  .card:hover img { transform: scale(1.06); }
+  .card-img-wrap:hover img { transform: scale(1.06); }
   .card .tag {
     position: absolute; top: 14px; left: 14px;
     background: rgba(22,16,28,0.75); backdrop-filter: blur(4px);
     padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600;
   }
   .card .info {
-    position: absolute; left: 0; right: 0; bottom: 0;
-    padding: 18px; background: linear-gradient(to top, rgba(22,16,28,0.95), transparent);
-    transform: translateY(8px); opacity: 0.94;
+    padding: 16px 18px 20px;
   }
   .card .info h3 { font-family: 'Work Sans', sans-serif; font-weight: 700; font-size: 16px; }
-  .card .info a { font-size: 13px; color: var(--gold); font-weight: 600; }
+  .card .info a { display: inline-block; margin-top: 6px; font-size: 13px; color: var(--gold); font-weight: 600; }
 
   .gothic .card { background: #100a14; }
+
+  /* LIGHTBOX */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(10,6,14,0.92);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+    padding: 24px;
+  }
+  .lightbox.active { opacity: 1; pointer-events: auto; }
+  .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+  .lightbox-close {
+    position: absolute; top: 20px; right: 24px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(244,236,240,0.12); color: var(--bone);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; cursor: pointer; border: 1px solid var(--line);
+  }
 
   /* SERVICES */
   .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -185,28 +215,40 @@
     <div class="grid">
       <!-- Repeat this card block for each design. Upload images to /images/baltimore/ -->
       <div class="card">
-        <span class="tag">Best Seller</span>
-        <img src="images/baltimore/design01.jpg" alt="Sassy Classy and a Bit Bad Assy design">
+        <div class="card-img-wrap" onclick="openLightbox('images/baltimore/design01.jpg')">
+          <span class="tag">Best Seller</span>
+          <img src="images/baltimore/design01.jpg" alt="Sassy Classy and a Bit Bad Assy design">
+        </div>
         <div class="info"><h3>Sassy Classy</h3><a href="https://www.teepublic.com/t-shirt/97426553-sassy-classy-and-a-bit-bad-assy-pink-glam-queen?store_id=3173934" target="_blank">Shop this design →</a></div>
       </div>
       <div class="card">
-        <img src="images/baltimore/design02.jpg" alt="Baltimore retro sunset design">
+        <div class="card-img-wrap" onclick="openLightbox('images/baltimore/design02.jpg')">
+          <img src="images/baltimore/design02.jpg" alt="Baltimore retro sunset design">
+        </div>
         <div class="info"><h3>Baltimore Sunset</h3><a href="https://www.teepublic.com/t-shirt/66993999-baltimore?store_id=3173934" target="_blank">Shop this design →</a></div>
       </div>
       <div class="card">
-        <img src="images/baltimore/design03.jpg" alt="Charm City Maryland design">
+        <div class="card-img-wrap" onclick="openLightbox('images/baltimore/design03.jpg')">
+          <img src="images/baltimore/design03.jpg" alt="Charm City Maryland design">
+        </div>
         <div class="info"><h3>Charm City</h3><a href="https://www.teepublic.com/t-shirt/65181851-charm-city-baltimore-maryland?store_id=3173934" target="_blank">Shop this design →</a></div>
       </div>
       <div class="card">
-        <img src="images/baltimore/design04.jpg" alt="Bmore Raised Me design">
+        <div class="card-img-wrap" onclick="openLightbox('images/baltimore/design04.jpg')">
+          <img src="images/baltimore/design04.jpg" alt="Bmore Raised Me design">
+        </div>
         <div class="info"><h3>Bmore Raised Me</h3><a href="https://www.teepublic.com/t-shirt/60924093-bmore-raised-me-baltimore-maryland-pride-tee-homet?store_id=3173934" target="_blank">Shop this design →</a></div>
       </div>
       <div class="card">
-        <img src="images/baltimore/design05.jpg" alt="Baltimore Strong design">
+        <div class="card-img-wrap" onclick="openLightbox('images/baltimore/design05.jpg')">
+          <img src="images/baltimore/design05.jpg" alt="Baltimore Strong design">
+        </div>
         <div class="info"><h3>Baltimore Strong</h3><a href="https://www.teepublic.com/t-shirt/76329843-baltimore-strong-tee-maryland-flag-heart-take-prid?store_id=3173934" target="_blank">Shop this design →</a></div>
       </div>
       <div class="card">
-        <img src="images/baltimore/design06.jpg" alt="Baltimore crab soft shell design">
+        <div class="card-img-wrap" onclick="openLightbox('images/baltimore/design06.jpg')">
+          <img src="images/baltimore/design06.jpg" alt="Baltimore crab soft shell design">
+        </div>
         <div class="info"><h3>Soft Shell</h3><a href="https://www.teepublic.com/t-shirt/98098863-ain-t-no-soft-shell-over-here-baltimore-crab?store_id=3173934" target="_blank">Shop this design →</a></div>
       </div>
     </div>
@@ -221,15 +263,21 @@
     </div>
     <div class="grid">
       <div class="card">
-        <img src="images/gothic/design01.jpg" alt="Howdy Boo skeleton cowgirl design">
+        <div class="card-img-wrap" onclick="openLightbox('images/gothic/design01.jpg')">
+          <img src="images/gothic/design01.jpg" alt="Howdy Boo skeleton cowgirl design">
+        </div>
         <div class="info"><h3>Howdy Boo!</h3><a href="https://www.teepublic.com/t-shirt/98397972-howdy-boo-glam-cowgirl-skeleton?store_id=3173934" target="_blank">Shop this design →</a></div>
       </div>
       <div class="card">
-        <img src="images/gothic/design02.jpg" alt="Expensive Difficult and Talks Back design">
+        <div class="card-img-wrap" onclick="openLightbox('images/gothic/design02.jpg')">
+          <img src="images/gothic/design02.jpg" alt="Expensive Difficult and Talks Back design">
+        </div>
         <div class="info"><h3>Expensive, Difficult</h3><a href="https://www.teepublic.com/t-shirt/98398150-expensive-difficult-and-talks-back?store_id=3173934" target="_blank">Shop this design →</a></div>
       </div>
       <div class="card">
-        <img src="images/gothic/design03.jpg" alt="Antisocial skeleton design">
+        <div class="card-img-wrap" onclick="openLightbox('images/gothic/design03.jpg')">
+          <img src="images/gothic/design03.jpg" alt="Antisocial skeleton design">
+        </div>
         <div class="info"><h3>Not Antisocial</h3><a href="https://www.teepublic.com/t-shirt/74968472-i-m-not-antisocial-i-just-hate-you-alt-girl-e-girl?store_id=3173934" target="_blank">Shop this design →</a></div>
       </div>
     </div>
@@ -307,6 +355,22 @@
   </div>
   <div class="wrap bottom">© Graphic Pixels. Made in Baltimore.</div>
 </footer>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightbox(event)">&times;</div>
+  <img id="lightbox-img" src="" alt="Enlarged design preview">
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox(e) {
+    e.stopPropagation();
+    document.getElementById('lightbox').classList.remove('active');
+  }
+</script>
 
 </body>
 </html>
